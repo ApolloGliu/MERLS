@@ -20,9 +20,15 @@ def export_results():
         .eq("is_en", is_en) \
         .execute()
 
-    if response.status_code != 200:
-        return jsonify({"error": "Failed to export submissions"}), 500
+   response = supabase.table("submissions").select("*") \
+    .eq("participant_id", participant_id) \
+    .eq("is_en", is_en).execute()
 
+# 安全检查
+if not response or "data" not in response or response["data"] is None:
+    return jsonify({"error": "No data returned from Supabase"}), 500
+
+# 转换为 DataFrame
     df = pd.DataFrame(response.data)
     excel_file = io.BytesIO()
     df.to_excel(excel_file, index=False)
