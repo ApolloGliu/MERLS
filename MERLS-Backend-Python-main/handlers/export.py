@@ -1,5 +1,5 @@
 from flask import Blueprint, request, send_file, jsonify
-from supabase_client import supabase
+from Supabase_client import supabase
 import pandas as pd
 import io
 
