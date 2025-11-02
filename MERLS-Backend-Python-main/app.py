@@ -43,14 +43,3 @@ def handle_http_exception(e):
 
 if __name__ == "__main__":
     app.run(debug=True)
-  
-    print("SUPABASE_URL =", os.getenv("SUPABASE_URL"))
-    print("SUPABASE_KEY =", os.getenv("SUPABASE_KEY")[:6], "...(truncated)")
-    print("Test fetch from submissions table:")
-
-try:
-    test_response = supabase.table("submissions").select("*").limit(1).execute()
-    print("Got response:", test_response)
-except Exception as e:
-    print("Supabase error:", e)
-
